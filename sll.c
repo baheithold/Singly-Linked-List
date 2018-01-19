@@ -62,9 +62,25 @@ SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
 
 void insertSLL(SLL *items, int index, void *value) {
     assert(index >= 0 && index <= items->size);
-    if (index == 0 || items->size == 0) {
+    assert(items != 0);
+    if (index == 0) {
         // Node is to be added to the front of the list
         items->addToFront(items, value);
+    }
+    else if (index == items->size) {
+        // Node is to be added to the back of the list
+        items->addToBack(items, value);
+    }
+    else {
+        // Node is to be inserted at an index between 0 and items->size
+        NODE *curr = items->head;
+        assert(curr != 0);
+        while (index > 1) {
+            curr = curr->next;
+            index--;
+        }
+        curr->next = newNODE(value, curr->next);
+        items->size++;
     }
 }
 
