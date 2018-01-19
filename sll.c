@@ -285,10 +285,12 @@ void addToBack(SLL *items, void *value) {
 }
 
 void *removeFromFront(SLL *items) {
+    // TODO: free what is no longer needed
     assert(items != 0);
 }
 
 void *removeFromBack(SLL *items) {
+    // TODO: free what is no longer needed
     assert(items != 0);
     if (items->size == 1) {
         removeFromFront(items);
@@ -296,6 +298,7 @@ void *removeFromBack(SLL *items) {
 }
 
 void *removeFromIndex(SLL *items, int index) {
+    // TODO: free what is no longer needed
     void *oldValue;
     NODE *curr = items->head;
     while (index > 1) {
@@ -305,5 +308,6 @@ void *removeFromIndex(SLL *items, int index) {
     NODE *oldNode = curr->next;
     oldValue = oldNode->value;
     curr->next = oldNode->next;
+    items->size--;
     return oldValue;
 }
