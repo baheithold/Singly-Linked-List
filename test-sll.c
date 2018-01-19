@@ -19,22 +19,19 @@ int main(void) {
     insertSLL(list, sizeSLL(list), newINTEGER(9));
     insertSLL(list, sizeSLL(list), newINTEGER(1));
 
-    printf("Value at index 0: ");
-    displayINTEGER(getSLL(list, 0), stdout);
-    printf("\n");
-    printf("Value at index 1: ");
-    displayINTEGER(getSLL(list, 1), stdout);
-    printf("\n");
-    printf("Value at index 2: ");
-    displayINTEGER(getSLL(list, 2), stdout);
-    printf("\n");
-    printf("Value at index 3: ");
-    displayINTEGER(getSLL(list, 3), stdout);
-    printf("\n");
-    printf("Value at index 4: ");
-    displayINTEGER(getSLL(list, 4), stdout);
-    printf("\n");
+    // before changes
+    printf("Before changes: ");
+    displaySLL(list, stdout);
+    fprintf(stdout, "\n");
 
+    // set head tail and index to different values
+    void *old1 = setSLL(list, 0, newINTEGER(17));
+    void *old4 = setSLL(list, sizeSLL(list)-1, newINTEGER(17));
+    void *old2 = setSLL(list, sizeSLL(list), newINTEGER(17));
+    void *old3 = setSLL(list, 2, newINTEGER(17));
+
+    // after changes
+    printf("After changes: ");
     displaySLL(list, stdout);
     fprintf(stdout, "\n");
     

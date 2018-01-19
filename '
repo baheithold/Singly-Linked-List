@@ -151,39 +151,7 @@ void *getSLL(SLL *items, int index) {
 }
 
 
-/*
- *  Method: setSLL
- *  Usage: void *oldValue = setSLL(list, index, value);
- *  Description: This method updates the value at the given index. If the given
- *  index is a valid index for the list, the replaced value is returned. If the
- *  given index is equal to the size, the value is appended to the list and a 
- *  NULL pointer is returned. This method runs in constant time for updates at 
- *  the very back of the list and at a constant distance from the front.
- *  A valid index for the list must be greater than or equal to zero and
- *  less than or equal to the size of the list.
- */
 void *setSLL(SLL *items, int index, void *value) {
-    assert(index >= 0 && index <= items->size);
-    void *oldValue = NULL;
-    if (index == items->size - 1) {
-        // Replace value at tail
-        oldValue = items->tail->value;
-        items->tail->value = value;
-    }
-    else if (index == items->size) {
-        // Append value to the end of the list
-        addToBack(items, value);
-    }
-    else {
-        NODE *curr = items->head;
-        while (index > 0) {
-            curr = curr->next;
-            index--;
-        }
-        oldValue = curr->value;
-        curr->value = value;
-    }
-    return oldValue;
 }
 
 
