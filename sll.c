@@ -139,15 +139,15 @@ void *removeSLL(SLL *items, int index) {
     void *oldValue;
     if (index == 0) {
         // Remove from front
-        oldValue = removeFromFront(items);
+        oldValue = items->removeFromFront(items);
     }
     else if (index == items->size - 1) {
         // Remove from back
-        oldValue = removeFromBack(items);
+        oldValue = items->removeFromBack(items);
     }
     else {
         // Remove from index
-        oldValue = removeFromIndex(items, index);
+        oldValue = items->removeFromIndex(items, index);
     }
     return oldValue;
 }
@@ -161,7 +161,7 @@ void *removeSLL(SLL *items, int index) {
 void unionSLL(SLL *recipient, SLL *donor) {
     // TODO: Do I Work Right?
     while (donor->size != 0) {
-        addToBack(recipient, removeFromFront(donor));
+        recipient->addToBack(recipient, donor->removeFromFront(donor));
     }
 }
 
@@ -216,7 +216,7 @@ void *setSLL(SLL *items, int index, void *value) {
     }
     else if (index == items->size) {
         // Append value to the end of the list
-        addToBack(items, value);
+        items->addToBack(items, value);
     }
     else {
         NODE *curr = items->head;
@@ -365,9 +365,6 @@ void *removeFromFront(SLL *items) {
     NODE *tmp = items->head;
     items->head = items->head->next;
     items->size--;
-    if (items->size == 0) {
-        items->tail = NULL;
-    }
     free(tmp);
     return oldValue;
 }
@@ -384,8 +381,8 @@ void *removeFromBack(SLL *items) {
         while (curr->next->next != NULL) {
             curr = curr->next;
         }
-        oldValue = curr->next->value;
         NODE *tmp = curr->next;
+        oldValue = tmp->value;
         curr->next = NULL;
         free(tmp);
         items->tail = curr;
