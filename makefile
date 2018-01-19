@@ -1,23 +1,26 @@
-OBJS = integer.o test-integer.o
+OBJS = sll.o test-sll.o integer.o
 OOPTS = -Wall -Wextra -g -c
 LOPTS = -Wall -Wextra -g
 
-all : test-integer
+all : test-sll
 
-test-integer : $(OBJS)
-		gcc $(LOPTS) $(OBJS) -o test-integer
+test-sll : $(OBJS)
+		gcc $(LOPTS) $(OBJS) -o test-sll
 
 integer.o : integer.c integer.h
 		gcc $(OOPTS) integer.c
 
-test-integer.o :	test-integer.c integer.h
-		gcc $(OOPTS) test-integer.c
+sll.o : sll.c sll.h
+	gcc $(OOPTS) sll.c
 
-test : test-integer
-		./test-integer
+test-sll.o :	test-sll.c sll.h
+		gcc $(OOPTS) test-sll.c
 
-valgrind : test-integer
-		valgrind test-integer
+test : test-sll
+		./test-sll
+
+valgrind : test-sll
+		valgrind test-sll
 
 clean	:
-		rm -f $(OBJS) test-integer
+		rm -f *.o test-sll
