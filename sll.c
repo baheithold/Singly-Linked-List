@@ -52,6 +52,9 @@ NODE *newNODE(void *value, NODE *next) {
 // Private SLL method prototypes
 static void addToFront(SLL *items, void *value);
 static void addToBack(SLL *items, void *value);
+static void *removeFromFront(SLL *items);
+static void *removeFromBack(SLL *items);
+static void *removeFromIndex(SLL *items, int index);
 
 
 /*
@@ -67,6 +70,9 @@ struct SLL {
 
     void (*addToFront)(SLL *, void *);
     void (*addToBack)(SLL *, void *);
+    void *(*removeFromFront)(SLL *);
+    void *(*removeFromBack)(SLL *);
+    void *(*removeFromIndex)(SLL *, int);
 }; 
 
 
@@ -87,6 +93,9 @@ SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
     items->free = f;
     items->addToFront = addToFront;
     items->addToBack = addToBack;
+    items->removeFromFront = removeFromFront;
+    items->removeFromBack = removeFromBack;
+    items->removeFromIndex = removeFromIndex;
     return items;
 }
 
@@ -126,18 +135,50 @@ void insertSLL(SLL *items, int index, void *value) {
 
 
 /*
+ *  Method: removeSLL
+ *  Usage: void *val = removeSLL(list, index);
+ *  Description:
+ */
+void *removeSLL(SLL *items, int index) {
+    assert(items->size > 0 && index >= 0 && index < items->size);
+    void *oldValue;
+    if (index == 0) {
+        // Remove from front
+        oldValue = removeFromFront(items);
+    }
+    else if (index == items->size - 1) {
+        // Remove from back
+        oldValue = removeFromBack(items);
+    }
+    else {
+        // Remove from index
+        oldValue = removeFromIndex(items, index);
+    }
+    return oldValue;
+}
+
+
+/*
+ *  Method: unionSLL
+ *  Usage: unionSLL(recipient, donor);
+ *  Description:
+ */
+
+
+/*
  *  Method: getSLL
  *  Usage:  void *value = getSLL(list, index);
  *  Description: This method returns the value at the given index. It runs in
  *  constant time for retrievals at the very back of the list and at a constant
- *  distance from the front of the list.
+ *  distance from the front of the list. The given index must be greater than
+ *  or equal to zero and less than the size of the list.
  */
 void *getSLL(SLL *items, int index) {
-    assert(index >= 0 && index <= items->size);
+    assert(index >= 0 && index < items->size);
     if (index == 0) {
         return items->head->value;
     }
-    else if (index == items->size) {
+    else if (index == items->size - 1) {
         return items->tail->value;
     }
     else {
@@ -241,4 +282,28 @@ void addToBack(SLL *items, void *value) {
         items->tail = items->tail->next;
         items->size++;
     }
+}
+
+void *removeFromFront(SLL *items) {
+    assert(items != 0);
+}
+
+void *removeFromBack(SLL *items) {
+    assert(items != 0);
+    if (items->size == 1) {
+        removeFromFront(items);
+    }
+}
+
+void *removeFromIndex(SLL *items, int index) {
+    void *oldValue;
+    NODE *curr = items->head;
+    while (index > 1) {
+        curr = curr->next;
+        index--;
+    }
+    NODE *oldNode = curr->next;
+    oldValue = oldNode->value;
+    curr->next = oldNode->next;
+    return oldValue;
 }
