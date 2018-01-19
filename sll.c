@@ -263,6 +263,51 @@ void displaySLL(SLL *items, FILE *fp) {
 }
 
 
+/*
+ *  Method: displaySLLdebug
+ *  Usage: displaySLLdebug(list, stdout);
+ *  Description:
+ */
+void displaySLLdebug(SLL *items, FILE *fp) {
+    // Display head
+    fprintf(fp, "head->{");
+    NODE *curr = items->head;
+    while (curr != NULL) {
+        items->display(curr->value, fp);
+        if (curr->next != NULL) {
+            fprintf(fp, ",");
+        }
+        curr = curr->next;
+    }
+    fprintf(fp, "},");
+    // Display tail
+    fprintf(fp, "tail->{");
+    if (items->size != 0) {
+        items->display(items->tail->value, fp);
+    }
+    fprintf(fp, "}");
+}
+
+
+/*
+ *  Method: freeSLL
+ *  Usage: freeSLL(list);
+ *  Description:
+ */
+void freeSLL(SLL *items) {
+    NODE *curr = items->head;
+    NODE *tmp;
+    while (curr != NULL) {
+        if (items->free != NULL) {
+            items->free(curr->value);
+        }
+        tmp = curr;
+        curr = curr->next;
+        free(tmp);
+    }
+    free(items);
+}
+
 
 /******************** Private **************************/
 void addToFront(SLL *items, void *value) {
@@ -285,20 +330,40 @@ void addToBack(SLL *items, void *value) {
 }
 
 void *removeFromFront(SLL *items) {
-    // TODO: free what is no longer needed
     assert(items != 0);
+    void *oldValue = items->head->value;
+    NODE *tmp = items->head;
+    items->head = items->head->next;
+    items->size--;
+    if (items->size == 0) {
+        items->tail = NULL;
+    }
+    free(tmp);
+    return oldValue;
 }
 
 void *removeFromBack(SLL *items) {
-    // TODO: free what is no longer needed
+    void *oldValue;
     assert(items != 0);
     if (items->size == 1) {
-        removeFromFront(items);
+        oldValue = removeFromFront(items);
     }
+    else {
+        NODE *curr = items->head;
+        while (curr->next->next != NULL) {
+            curr = curr->next;
+        }
+        oldValue = curr->next->value;
+        NODE *tmp = curr->next;
+        curr->next = NULL;
+        free(tmp);
+        items->tail = curr;
+        items->size--;
+    }
+    return oldValue;
 }
 
 void *removeFromIndex(SLL *items, int index) {
-    // TODO: free what is no longer needed
     void *oldValue;
     NODE *curr = items->head;
     while (index > 1) {
@@ -309,5 +374,6 @@ void *removeFromIndex(SLL *items, int index) {
     oldValue = oldNode->value;
     curr->next = oldNode->next;
     items->size--;
+    free(oldNode);
     return oldValue;
 }
