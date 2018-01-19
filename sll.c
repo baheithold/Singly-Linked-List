@@ -96,7 +96,9 @@ void displaySLL(SLL *items, FILE *fp) {
     NODE *curr = items->head;
     while (curr != NULL) {
         items->display(curr->value, fp);
-        fprintf(fp, ",");
+        if (curr->next != NULL) {
+            fprintf(fp, ",");
+        }
         curr = curr->next;
     }
     fprintf(fp, "}");

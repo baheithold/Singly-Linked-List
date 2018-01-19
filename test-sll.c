@@ -15,6 +15,9 @@ int main(void) {
 
     insertSLL(list, sizeSLL(list), newINTEGER(5));
     insertSLL(list, sizeSLL(list), newINTEGER(6));
+    insertSLL(list, sizeSLL(list), newINTEGER(2));
+    insertSLL(list, sizeSLL(list), newINTEGER(9));
+    insertSLL(list, sizeSLL(list), newINTEGER(1));
 
     displaySLL(list, stdout);
     fprintf(stdout, "\n");
