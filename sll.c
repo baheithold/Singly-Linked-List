@@ -9,11 +9,22 @@
 #include "sll.h"
 
 
+/*
+ *  Type: NODE
+ *  Description: This is the NODE struct used for the implementation
+ *  of the SLL class.
+ */
 typedef struct node {
     void *value;
     struct node *next;
 } NODE;
 
+
+/*
+ *  Constructor: newEmptyNODE
+ *  Usage: NODE *n = newEmptyNODE();
+ *  Description: This constructor creates an empty NODE object.
+ */
 NODE *newEmptyNODE(void) {
     NODE *n = malloc(sizeof(NODE));
     assert(n != 0);
@@ -22,6 +33,13 @@ NODE *newEmptyNODE(void) {
     return n;
 }
 
+
+/*
+ *  Constructor: newNODE
+ *  Usage: NODE *n = newNODE(value, next);
+ *  Description: This constructor creates a new NODE object with a value
+ *  and initializes the node's next pointer.
+ */
 NODE *newNODE(void *value, NODE *next) {
     NODE *n = malloc(sizeof(NODE));
     assert(n != 0);
@@ -31,9 +49,15 @@ NODE *newNODE(void *value, NODE *next) {
 }
 
 
+// Private SLL method prototypes
 static void addToFront(SLL *items, void *value);
 static void addToBack(SLL *items, void *value);
 
+
+/*
+ *  Type: SLL
+ *  Description: This is the SLL struct used for basis of the SLL class.
+ */
 struct SLL {
     NODE *head;
     NODE *tail;
@@ -46,6 +70,13 @@ struct SLL {
 }; 
 
 
+/*
+ *  Constructor: newSLL
+ *  Usage: SLL *s = newSLL(displayINTEGER, freeINTEGER);
+ *  Description: This constructor initializes a new SLL object. It sets the
+ *  head and tail pointers to NULL as well as the size to 0. This constructor
+ *  also sets the function pointers.
+ */
 SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
     SLL *items = malloc(sizeof(SLL));
     assert(items != 0);
@@ -60,6 +91,14 @@ SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
 }
 
 
+/*
+ *  Method: insertSLL
+ *  Usage: insertSLL(s, i, v);
+ *  Description: This method inserts a value into the list at a given index.
+ *  It runs in constant time for insertions at the very end of the list
+ *  and runs in constant time for insertions that are a constant distance
+ *  from the front. The singly-linked list uses zero-based indexing.
+ */
 void insertSLL(SLL *items, int index, void *value) {
     assert(index >= 0 && index <= items->size);
     assert(items != 0);
@@ -86,11 +125,27 @@ void insertSLL(SLL *items, int index, void *value) {
 }
 
 
+/*
+ *  Method: sizeSLL
+ *  Usage: int size = sizeSLL(list);
+ *  Description: This method returns the number of items stored in the list.
+ */
 int sizeSLL(SLL *items) {
     return items->size;
 }
 
 
+/*
+ *  Method: displaySLL
+ *  Usage: displaySLL(list, stdout);
+ *  Description: This method prints the items stored in the list to the 
+ *  file pointer passed as an argument. There is no preceeding or following
+ *  whitespace printed.
+ *  Example: If the list holds the integers 5, 6, 2, 9, and 1 from front to back
+ *           {5,6,2,9,1}
+ *           Empty-List
+ *           {}
+ */
 void displaySLL(SLL *items, FILE *fp) {
     fprintf(fp, "{");
     NODE *curr = items->head;
