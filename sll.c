@@ -128,7 +128,9 @@ void insertSLL(SLL *items, int index, void *value) {
 /*
  *  Method: getSLL
  *  Usage:  void *value = getSLL(list, index);
- *  Description:
+ *  Description: This method returns the value at the given index. It runs in
+ *  constant time for retrievals at the very back of the list and at a constant
+ *  distance from the front of the list.
  */
 void *getSLL(SLL *items, int index) {
     assert(index >= 0 && index <= items->size);
