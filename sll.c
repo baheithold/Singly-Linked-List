@@ -85,6 +85,11 @@ void insertSLL(SLL *items, int index, void *value) {
 }
 
 
+int sizeSLL(SLL *items) {
+    return items->size;
+}
+
+
 
 /******************** Private **************************/
 void addToFront(SLL *items, void *value) {
