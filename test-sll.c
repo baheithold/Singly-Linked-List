@@ -39,5 +39,40 @@ int main(void)
    printf("The first item is %d.\n",x);
    printf("Freeing the list.\n");
    freeSLL(items);
+
+    // Test unionSLL functionality
+    printf("\nTesting unionSLL now...\n");
+    printf("Creating empty recipient and donor lists...\n");
+    SLL *recipient = newSLL(displayINTEGER, freeINTEGER);
+    SLL *donor = newSLL(displayINTEGER, freeINTEGER);
+    printf("First testing a union with two empty lists...\n");
+    printf("Recipient: ");
+    displaySLL(recipient, stdout);
+    printf("\n");
+    printf("Donor: ");
+    displaySLL(donor, stdout);
+    printf("\n");
+
+    printf("Adding integers 3 4 5 to recipient...\n");
+    insertSLL(recipient, sizeSLL(recipient), newINTEGER(3));
+    insertSLL(recipient, sizeSLL(recipient), newINTEGER(4));
+    insertSLL(recipient, sizeSLL(recipient), newINTEGER(5));
+    printf("Adding integers 1 2 to donor...\n");
+    insertSLL(donor, sizeSLL(donor), newINTEGER(1));
+    insertSLL(donor, sizeSLL(donor), newINTEGER(2));
+    printf("Recipient: ");
+    displaySLL(recipient, stdout);
+    printf("\n");
+    printf("Donor: ");
+    displaySLL(donor, stdout);
+    printf("\n");
+    unionSLL(recipient, donor);
+    printf("Recipient after union: ");
+    displaySLL(recipient, stdout);
+    printf("\n");
+    printf("Donor after union: ");
+    displaySLL(donor, stdout);
+    printf("\n");
+
    return 0;
    }

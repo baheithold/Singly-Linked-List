@@ -163,6 +163,12 @@ void *removeSLL(SLL *items, int index) {
  *  Usage: unionSLL(recipient, donor);
  *  Description:
  */
+void unionSLL(SLL *recipient, SLL *donor) {
+    // TODO: Do I Work Right?
+    while (donor->size != 0) {
+        addToBack(recipient, removeFromFront(donor));
+    }
+}
 
 
 /*
@@ -174,6 +180,7 @@ void *removeSLL(SLL *items, int index) {
  *  or equal to zero and less than the size of the list.
  */
 void *getSLL(SLL *items, int index) {
+    // TODO: Do I Work Right?
     assert(index >= 0 && index < items->size);
     if (index == 0) {
         return items->head->value;
@@ -204,6 +211,7 @@ void *getSLL(SLL *items, int index) {
  *  less than or equal to the size of the list.
  */
 void *setSLL(SLL *items, int index, void *value) {
+    // TODO: Do I Work Right?
     assert(index >= 0 && index <= items->size);
     void *oldValue = NULL;
     if (index == items->size - 1) {
@@ -295,6 +303,7 @@ void displaySLLdebug(SLL *items, FILE *fp) {
  *  Description:
  */
 void freeSLL(SLL *items) {
+    // TODO: Do I Work Right?
     NODE *curr = items->head;
     NODE *tmp;
     while (curr != NULL) {
@@ -309,12 +318,14 @@ void freeSLL(SLL *items) {
 }
 
 
-/******************** Private **************************/
+/************************* Private Methods **************************/
+
 void addToFront(SLL *items, void *value) {
     assert(items != 0);
     items->head = newNODE(value, items->head);
     items->size++;
 }
+
 
 void addToBack(SLL *items, void *value) {
     assert(items != 0);
@@ -329,6 +340,7 @@ void addToBack(SLL *items, void *value) {
     }
 }
 
+
 void *removeFromFront(SLL *items) {
     assert(items != 0);
     void *oldValue = items->head->value;
@@ -341,6 +353,7 @@ void *removeFromFront(SLL *items) {
     free(tmp);
     return oldValue;
 }
+
 
 void *removeFromBack(SLL *items) {
     void *oldValue;
@@ -362,6 +375,7 @@ void *removeFromBack(SLL *items) {
     }
     return oldValue;
 }
+
 
 void *removeFromIndex(SLL *items, int index) {
     void *oldValue;
