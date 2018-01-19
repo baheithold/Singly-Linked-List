@@ -66,6 +66,7 @@ void insertSLL(SLL *items, int index, void *value) {
     if (index == 0) {
         // Node is to be added to the front of the list
         items->addToFront(items, value);
+        items->tail = items->head;
     }
     else if (index == items->size) {
         // Node is to be added to the back of the list
@@ -87,6 +88,18 @@ void insertSLL(SLL *items, int index, void *value) {
 
 int sizeSLL(SLL *items) {
     return items->size;
+}
+
+
+void displaySLL(SLL *items, FILE *fp) {
+    fprintf(fp, "{");
+    NODE *curr = items->head;
+    while (curr != NULL) {
+        items->display(curr->value, fp);
+        fprintf(fp, ",");
+        curr = curr->next;
+    }
+    fprintf(fp, "}");
 }
 
 
