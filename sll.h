@@ -10,8 +10,10 @@
 #define __SLL_INCLUDED__
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
-typedef struct sll SLL;
+typedef struct SLL SLL;
 
 extern SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *));
 extern void insertSLL(SLL *items, int index);
