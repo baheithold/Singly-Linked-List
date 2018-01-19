@@ -52,6 +52,7 @@ NODE *newNODE(void *value, NODE *next) {
 // Private SLL method prototypes
 static void addToFront(SLL *items, void *value);
 static void addToBack(SLL *items, void *value);
+static void insertAtIndex(SLL *items, int index, void *value);
 static void *removeFromFront(SLL *items);
 static void *removeFromBack(SLL *items);
 static void *removeFromIndex(SLL *items, int index);
@@ -70,6 +71,7 @@ struct SLL {
 
     void (*addToFront)(SLL *, void *);
     void (*addToBack)(SLL *, void *);
+    void (*insertAtIndex)(SLL *, int, void *);
     void *(*removeFromFront)(SLL *);
     void *(*removeFromBack)(SLL *);
     void *(*removeFromIndex)(SLL *, int);
@@ -93,6 +95,7 @@ SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
     items->free = f;
     items->addToFront = addToFront;
     items->addToBack = addToBack;
+    items->insertAtIndex = insertAtIndex;
     items->removeFromFront = removeFromFront;
     items->removeFromBack = removeFromBack;
     items->removeFromIndex = removeFromIndex;
@@ -114,7 +117,6 @@ void insertSLL(SLL *items, int index, void *value) {
     if (index == 0) {
         // Node is to be added to the front of the list
         items->addToFront(items, value);
-        items->tail = items->head;
     }
     else if (index == items->size) {
         // Node is to be added to the back of the list
@@ -122,14 +124,7 @@ void insertSLL(SLL *items, int index, void *value) {
     }
     else {
         // Node is to be inserted at an index between 0 and items->size
-        NODE *curr = items->head;
-        assert(curr != 0);
-        while (index > 1) {
-            curr = curr->next;
-            index--;
-        }
-        curr->next = newNODE(value, curr->next);
-        items->size++;
+        items->insertAtIndex(items, index, value);
     }
 }
 
@@ -323,6 +318,10 @@ void freeSLL(SLL *items) {
 void addToFront(SLL *items, void *value) {
     assert(items != 0);
     items->head = newNODE(value, items->head);
+    if (items->size == 0) {
+        // List was empty before insertion
+        items->tail = items->head;
+    }
     items->size++;
 }
 
@@ -337,6 +336,25 @@ void addToBack(SLL *items, void *value) {
         items->tail->next = newNODE(value, NULL);
         items->tail = items->tail->next;
         items->size++;
+    }
+}
+
+
+void insertAtIndex(SLL *items, int index, void *value) {
+    assert(items != 0);
+    if (index == 0) {
+        items->addToFront(items, value);
+    }
+    else if (index == items->size) {
+        items->addToBack(items, value);
+    }
+    else {
+        NODE *curr = items->head;
+        while (index > 1) {
+            curr = curr->next;
+            index--;
+        }
+        curr->next = newNODE(value, curr->next->next);
     }
 }
 
@@ -359,7 +377,7 @@ void *removeFromBack(SLL *items) {
     void *oldValue;
     assert(items != 0);
     if (items->size == 1) {
-        oldValue = removeFromFront(items);
+        oldValue = items->removeFromFront(items);
     }
     else {
         NODE *curr = items->head;
