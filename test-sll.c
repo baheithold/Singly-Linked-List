@@ -73,6 +73,8 @@ int main(void)
     printf("Donor after union: ");
     displaySLL(donor, stdout);
     printf("\n");
+    freeSLL(recipient);
+    freeSLL(donor);
 
    return 0;
    }
