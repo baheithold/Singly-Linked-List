@@ -126,6 +126,30 @@ void insertSLL(SLL *items, int index, void *value) {
 
 
 /*
+ *  Method: getSLL
+ *  Usage:  void *value = getSLL(list, index);
+ *  Description:
+ */
+void *getSLL(SLL *items, int index) {
+    assert(index >= 0 && index <= items->size);
+    if (index == 0) {
+        return items->head->value;
+    }
+    else if (index == items->size) {
+        return items->tail->value;
+    }
+    else {
+        NODE *curr = items->head;
+        while (index > 0) {
+            curr = curr->next;
+            index--;
+        }
+        return curr->value;
+    }
+}
+
+
+/*
  *  Method: sizeSLL
  *  Usage: int size = sizeSLL(list);
  *  Description: This method returns the number of items stored in the list.
