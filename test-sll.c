@@ -41,7 +41,7 @@ int main(void)
    freeSLL(items);
 
     // Test unionSLL functionality
-    printf("\nTesting unionSLL now...\n");
+    /*printf("\nTesting unionSLL now...\n");
     printf("Creating empty recipient and donor lists...\n");
     SLL *recipient = newSLL(displayINTEGER, freeINTEGER);
     SLL *donor = newSLL(displayINTEGER, freeINTEGER);
@@ -66,7 +66,7 @@ int main(void)
     printf("Donor: ");
     displaySLL(donor, stdout);
     printf("\n");
-    unionSLL(recipient, donor);
+    //unionSLL(recipient, donor);
     printf("Recipient after union: ");
     displaySLL(recipient, stdout);
     printf("\n");
@@ -74,7 +74,7 @@ int main(void)
     displaySLL(donor, stdout);
     printf("\n");
     freeSLL(recipient);
-    freeSLL(donor);
+    freeSLL(donor);*/
 
    return 0;
    }

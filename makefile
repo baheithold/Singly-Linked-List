@@ -32,4 +32,4 @@ valgrind : test-sll
 		valgrind --leak-check=full test-sll
 
 clean	:
-		rm -f *.o test-sll
+		rm -f *.o test-sll sll-0-0

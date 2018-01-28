@@ -159,10 +159,12 @@ void *removeSLL(SLL *items, int index) {
  *  Description:
  */
 void unionSLL(SLL *recipient, SLL *donor) {
-    // TODO: Do I Work Right?
-    while (donor->size != 0) {
-        recipient->addToBack(recipient, donor->removeFromFront(donor));
-    }
+    // TODO: Do I work correctly?
+    assert(recipient != 0 && donor != 0);
+    recipient->tail->next = donor->head;
+    recipient->tail = donor->tail;
+    donor->head = NULL;
+    donor->tail = NULL;
 }
 
 
@@ -298,7 +300,7 @@ void displaySLLdebug(SLL *items, FILE *fp) {
  *  Description:
  */
 void freeSLL(SLL *items) {
-    // TODO: Do I Work Right?
+    // TODO: Do I Work Right? I THINK
     NODE *curr = items->head;
     NODE *tmp;
     while (curr != NULL) {
@@ -365,6 +367,9 @@ void *removeFromFront(SLL *items) {
     NODE *tmp = items->head;
     items->head = items->head->next;
     items->size--;
+    if (items->size == 0) {
+        items->tail = NULL;
+    }
     free(tmp);
     return oldValue;
 }
@@ -393,6 +398,7 @@ void *removeFromBack(SLL *items) {
 
 
 void *removeFromIndex(SLL *items, int index) {
+    // TODO: Do I Work Right?
     void *oldValue;
     NODE *curr = items->head;
     while (index > 1) {
@@ -403,6 +409,10 @@ void *removeFromIndex(SLL *items, int index) {
     oldValue = oldNode->value;
     curr->next = oldNode->next;
     items->size--;
+    if (items->size == 0) {
+        items->head = NULL;
+        items->tail = NULL;
+    }
     free(oldNode);
     return oldValue;
 }
