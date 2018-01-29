@@ -11,10 +11,10 @@ sll-0-0 : sll.o sll-0-0.o integer.o
 		gcc $(LOPTS) sll.o sll-0-0.o integer.o -o sll-0-0
 
 integer.o : integer.c integer.h
-		gcc $(OOPTS) integer.c
+		gcc -std=c99 $(OOPTS) integer.c
 
 sll.o : sll.c sll.h
-	gcc $(OOPTS) sll.c
+	gcc -std=c99 $(OOPTS) sll.c
 
 test-sll.o :	test-sll.c sll.h
 		gcc $(OOPTS) test-sll.c
