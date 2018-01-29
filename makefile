@@ -32,4 +32,4 @@ valgrind : test-sll
 		valgrind test-sll
 
 clean	:
-		rm -f *.o test-sll sll-0-0
+		rm -f *.o vgcore.* test-sll sll-0-0

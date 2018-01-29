@@ -155,6 +155,8 @@ void unionSLL(SLL *recipient, SLL *donor) {
     recipient->tail = donor->tail;
     donor->head = NULL;
     donor->tail = NULL;
+    recipient->size = recipient->size + donor->size;
+    donor->size = 0;
 }
 
 
