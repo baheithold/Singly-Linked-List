@@ -21,20 +21,6 @@ typedef struct node {
 
 
 /*
- *  Constructor: newEmptyNODE
- *  Usage: NODE *n = newEmptyNODE();
- *  Description: This constructor creates an empty NODE object.
- */
-NODE *newEmptyNODE(void) {
-    NODE *n = malloc(sizeof(NODE));
-    assert(n != 0);
-    n->value = NULL;
-    n->next = NULL;
-    return n;
-}
-
-
-/*
  *  Constructor: newNODE
  *  Usage: NODE *n = newNODE(value, next);
  *  Description: This constructor creates a new NODE object with a value
@@ -66,9 +52,12 @@ struct SLL {
     NODE *head;
     NODE *tail;
     int size;
+
+    // Public Methods
     void (*display)(void *, FILE *);
     void (*free)(void *);
 
+    // Private Methods
     void (*addToFront)(SLL *, void *);
     void (*addToBack)(SLL *, void *);
     void (*insertAtIndex)(SLL *, int, void *);
@@ -112,8 +101,8 @@ SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
  *  from the front. The singly-linked list uses zero-based indexing.
  */
 void insertSLL(SLL *items, int index, void *value) {
-    assert(index >= 0 && index <= items->size);
     assert(items != 0);
+    assert(index >= 0 && index <= items->size);
     if (index == 0) {
         // Node is to be added to the front of the list
         items->addToFront(items, value);
@@ -135,6 +124,7 @@ void insertSLL(SLL *items, int index, void *value) {
  *  Description:
  */
 void *removeSLL(SLL *items, int index) {
+    assert(items != 0);
     assert(items->size > 0 && index >= 0 && index < items->size);
     void *oldValue;
     if (index == 0) {
@@ -159,7 +149,7 @@ void *removeSLL(SLL *items, int index) {
  *  Description:
  */
 void unionSLL(SLL *recipient, SLL *donor) {
-    // TODO: Do I work correctly?
+    // TODO: Do I work correctly? I THINK
     assert(recipient != 0 && donor != 0);
     recipient->tail->next = donor->head;
     recipient->tail = donor->tail;
@@ -239,6 +229,7 @@ void *setSLL(SLL *items, int index, void *value) {
  *  Description: This method returns the number of items stored in the list.
  */
 int sizeSLL(SLL *items) {
+    assert(items != 0);
     return items->size;
 }
 
@@ -255,6 +246,7 @@ int sizeSLL(SLL *items) {
  *           {}
  */
 void displaySLL(SLL *items, FILE *fp) {
+    assert(items != 0);
     fprintf(fp, "{");
     NODE *curr = items->head;
     while (curr != NULL) {
@@ -274,6 +266,7 @@ void displaySLL(SLL *items, FILE *fp) {
  *  Description:
  */
 void displaySLLdebug(SLL *items, FILE *fp) {
+    assert(items != 0);
     // Display head
     fprintf(fp, "head->{");
     NODE *curr = items->head;
@@ -300,7 +293,8 @@ void displaySLLdebug(SLL *items, FILE *fp) {
  *  Description:
  */
 void freeSLL(SLL *items) {
-    // TODO: Do I Work Right? I THINK
+    // TODO: Do I Work Right?
+    assert(items != 0);
     NODE *curr = items->head;
     NODE *tmp;
     while (curr != NULL) {
@@ -356,7 +350,8 @@ void insertAtIndex(SLL *items, int index, void *value) {
             curr = curr->next;
             index--;
         }
-        curr->next = newNODE(value, curr->next->next);
+        NODE *n = newNODE(value, curr->next);
+        curr->next = n;
     }
 }
 

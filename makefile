@@ -29,7 +29,7 @@ test0 : sll-0-0
 		./sll-0-0
 
 valgrind : test-sll
-		valgrind --leak-check=full test-sll
+		valgrind test-sll
 
 clean	:
 		rm -f *.o test-sll sll-0-0
