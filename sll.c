@@ -354,6 +354,7 @@ void insertAtIndex(SLL *items, int index, void *value) {
         }
         NODE *n = newNODE(value, curr->next);
         curr->next = n;
+        items->size++;
     }
 }
 
