@@ -7,6 +7,8 @@
 
 
 #include "sll.h"
+#include <stdlib.h>
+#include <assert.h>
 
 
 /*
