@@ -485,6 +485,37 @@ int main(void)
 
    printf("\n");
    printf("%s\n", "********************************");
+   printf("%s\n\n", "testing setSLL functions on list2 (an empty list) ...");
+
+   val = 1111;
+   idx = sizeSLL(list2);
+   i = setSLL(list2, idx, newINTEGER(val));
+   printf("The value NULL");
+   //displayINTEGER(i,stdout);
+   freeINTEGER(i);
+   printf(" was changed at index %d\n", idx);
+   printf("%s\n", "--------------------------------------------------------------------------------------------------------");
+   printf("the index %d on %s has been set to %d. The list has gotten longer. PRINT %s: \n\n", idx, "list2", val, "list2");
+   show(list2);
+   size2 = sizeSLL(list2);
+   printf("\nthe size of list2 is now: %d\n", size2);
+
+   printf("\n");
+   printf("%s\n", "********************************");
+   printf("%s\n\n", "emptying list2 ...");
+
+   idx = sizeSLL(list2) - 1;
+   printf("The value ");
+   i = removeSLL(list2,idx);
+   displayINTEGER(i,stdout);
+   printf(" was removed from index %d\n", idx);
+   freeINTEGER(i);
+   printf("\n");
+   printf("%s\n", "list2 (after remove):");
+   show(list2);
+
+   printf("\n");
+   printf("%s\n", "********************************");
    printf("%s\n\n", "rebuilding list2 ...");
 
    printf("%s\n", "--------------------------------------------------------------------------------------------------------");
@@ -578,6 +609,14 @@ int main(void)
    show(list2);
    size2 = sizeSLL(list2);
    printf("\nlist2 is: %d items long.\n\n", size2);
+
+
+   printf("%s\n", "********************************");
+   printf("%s\n\n", "free function, when the sll isn't passed a freeing function (freeing function is null) ...");
+
+   SLL* testFREE = newSLL(displayINTEGER, NULL);
+
+   freeSLL(testFREE);
 
    printf("\n--------------------------------------------------------------------------------------------------------\nFreeing the list.\n");
    freeSLL(list1);
