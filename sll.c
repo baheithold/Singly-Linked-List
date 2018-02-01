@@ -146,16 +146,33 @@ void *removeSLL(SLL *items, int index) {
 /*
  *  Method: unionSLL
  *  Usage: unionSLL(recipient, donor);
- *  Description:
+ *  Description: The union method takes two lists and moves all the items in the
+ *  donor list to the recipient list. If the recipient list has the items
+ *  {3,4,5} and the donor list has the items {1,2}, then, after the union,
+ *  the donor list will be empty and recipient list will have the items
+ *  {3,4,5,1,2}. The union method runs in constant time. 
  */
 void unionSLL(SLL *recipient, SLL *donor) {
     // TODO: Do I work correctly? I THINK
     assert(recipient != 0 && donor != 0);
-    recipient->tail->next = donor->head;
-    recipient->tail = donor->tail;
+    if (recipient->size == 0 && donor->size == 0) {
+        return;
+    }
+    else if (recipient->size > 0 && donor->size == 0) {
+        return;
+    }
+    else if (recipient->size == 0 && donor->size > 0) {
+        recipient->head = donor->head;
+        recipient->tail = donor->tail;
+        recipient->size = donor->size;
+    }
+    else {
+        recipient->tail->next = donor->head;
+        recipient->tail = donor->tail;
+        recipient->size += donor->size;
+    }
     donor->head = NULL;
     donor->tail = NULL;
-    recipient->size = recipient->size + donor->size;
     donor->size = 0;
 }
 
