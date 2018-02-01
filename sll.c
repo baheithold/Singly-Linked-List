@@ -1,8 +1,8 @@
 /*
  *  File:   sll.c
  *  Author: Brett Heithold
- *
- *  Description:
+ *  Description: This is the implementation file for the
+ *  sll (singly-linked list) class.
  */
 
 
@@ -265,7 +265,7 @@ void displaySLL(SLL *items, FILE *fp) {
 /*
  *  Method: displaySLLdebug
  *  Usage: displaySLLdebug(list, stdout);
- *  Description:
+ *  Example Output: head->{5,6,2,9,1},tail->{1}
  */
 void displaySLLdebug(SLL *items, FILE *fp) {
     assert(items != 0);
@@ -292,7 +292,9 @@ void displaySLLdebug(SLL *items, FILE *fp) {
 /*
  *  Method: freeSLL
  *  Usage: freeSLL(list);
- *  Description:
+ *  Description: This method walks through the list, freeing the generic
+ *  values (using the passed-in freeing function) and the nodes that hold them.
+ *  If the freeing function is null, the generic value is not freed.
  */
 void freeSLL(SLL *items) {
     // TODO: Do I Work Right?
