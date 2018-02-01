@@ -1,8 +1,7 @@
 /*
  *  File:   sll.h
  *  Author: Brett Heithold
- *
- *  Description:
+ *  Description: This is the interface for the sll (singly-linked list) class.
  */
 
 
