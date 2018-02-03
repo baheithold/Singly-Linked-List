@@ -36,6 +36,21 @@
 *.x86_64
 *.hex
 test-sll
+sll-0-0
+sll-0-1
+sll-0-2
+sll-0-3
+sll-0-4
+sll-0-5
+sll-0-6
+sll-0-7
+sll-0-8
+sll-0-9
+sll-0-10
+sll-0-11
+sll-0-12
+sll-0-13
+sll-0-14
 
 # Debug files
 *.dSYM/
