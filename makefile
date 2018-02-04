@@ -16,8 +16,8 @@ OBJS14 = sll-0-14.o integer.o sll.o
 OOPTS = -Wall -Wextra -std=c99 -g -c
 LOPTS = -Wall -Wextra -std=c99 -g
 
-all: sll-0-0 sll-0-1 sll-0-2 sll-0-3 sll-0-4 sll-0-5 sll-0-6 sll-0-7 sll-0-8 \
-	 sll-0-9 sll-0-10 sll-0-11 sll-0-12 sll-0-13 sll-0-14
+all:	sll-0-0 sll-0-1 sll-0-2 sll-0-3 sll-0-4 sll-0-5 sll-0-6 sll-0-7 \
+		sll-0-8 sll-0-9 sll-0-10 sll-0-11 sll-0-12 sll-0-13 sll-0-14
 
 sll-0-0:	$(OBJS0)
 	gcc $(LOPTS) $(OBJS0) -o sll-0-0
@@ -64,64 +64,64 @@ sll-0-13:	$(OBJS13)
 sll-0-14:	$(OBJS14)
 	gcc $(LOPTS) $(OBJS14) -o sll-0-14
 
-sll.o: sll.c sll.h
+sll.o:	sll.c sll.h
 	gcc -std=c99 $(OOPTS) sll.c
 
-sll-0-0.o:	./testing/sll-0-0.c sll.h
+sll-0-0.o:	./testing/sll-0-0.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-0.c
 
-sll-0-1.o:	./testing/sll-0-1.c sll.h
+sll-0-1.o:	./testing/sll-0-1.c sll.h real.h
 	gcc $(OOPTS) ./testing/sll-0-1.c
 
-sll-0-2.o:	./testing/sll-0-2.c sll.h
+sll-0-2.o:	./testing/sll-0-2.c sll.h string.h
 	gcc $(OOPTS) ./testing/sll-0-2.c
 
-sll-0-3.o:	./testing/sll-0-3.c sll.h
+sll-0-3.o:	./testing/sll-0-3.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-3.c
 
-sll-0-4.o:	./testing/sll-0-4.c sll.h
+sll-0-4.o:	./testing/sll-0-4.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-4.c
 
-sll-0-5.o:	./testing/sll-0-5.c sll.h
+sll-0-5.o:	./testing/sll-0-5.c sll.h real.h
 	gcc $(OOPTS) ./testing/sll-0-5.c
 
-sll-0-6.o:	./testing/sll-0-6.c sll.h
+sll-0-6.o:	./testing/sll-0-6.c sll.h real.h
 	gcc $(OOPTS) ./testing/sll-0-6.c
 
-sll-0-7.o:	./testing/sll-0-7.c sll.h
+sll-0-7.o:	./testing/sll-0-7.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-7.c
 
 sll-0-8.o:	./testing/sll-0-8.c sll.h
 	gcc $(OOPTS) ./testing/sll-0-8.c
 
-sll-0-9.o:	./testing/sll-0-9.c sll.h
+sll-0-9.o:	./testing/sll-0-9.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-9.c
 
-sll-0-10.o:	./testing/sll-0-10.c sll.h
+sll-0-10.o:	./testing/sll-0-10.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-10.c
 
-sll-0-11.o:	./testing/sll-0-11.c sll.h
+sll-0-11.o:	./testing/sll-0-11.c sll.h real.h
 	gcc $(OOPTS) ./testing/sll-0-11.c
 
-sll-0-12.o:	./testing/sll-0-12.c sll.h
+sll-0-12.o:	./testing/sll-0-12.c sll.h real.h
 	gcc $(OOPTS) ./testing/sll-0-12.c
 
-sll-0-13.o:	./testing/sll-0-13.c sll.h
+sll-0-13.o:	./testing/sll-0-13.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-13.c
 
-sll-0-14.o:	./testing/sll-0-14.c sll.h
+sll-0-14.o:	./testing/sll-0-14.c sll.h integer.h
 	gcc $(OOPTS) ./testing/sll-0-14.c
 
-integer.o: integer.c integer.h
+integer.o:	integer.c integer.h
 		gcc $(OOPTS) integer.c
 
-real.o: real.c real.h
+real.o:	real.c real.h
 		gcc $(OOPTS) real.c
 
-string.o: string.c string.h
+string.o:	string.c string.h
 		gcc $(OOPTS) string.c
 
-test: all
+test:	all
 	@echo Testing Singly-Linked List
 	@echo Running sll-0-0 tester...
 	@./sll-0-0 > ./testing/myResults/results-0-0
@@ -184,7 +184,7 @@ test: all
 	@diff ./testing/expectedResults/results-0-14 ./testing/myResults/results-0-14
 	@echo
 
-valgrind: all
+valgrind:	all
 		valgrind sll-0-0
 		valgrind sll-0-1
 		valgrind sll-0-2
