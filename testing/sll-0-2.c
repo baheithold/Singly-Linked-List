@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sll.h"
-#include "string.h"
+#include "../sll.h"
+#include "../string.h"
 
 extern void srandom(unsigned int);
 extern long int random(void);
